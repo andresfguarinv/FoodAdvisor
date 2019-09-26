@@ -9,7 +9,8 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 import HomeScreen from '../screens/Home';
 import SearchScreen from '../screens/Search';
 import TopFiveScreen from '../screens/TopFive';
-import MyAccountScreen from '../screens/MyAccount';
+import MyAccountScreen from '../screens/MyAccount/MyAccount';
+import RegisterScreen from '../screens/MyAccount/Register';
 
 // Stacks: Son las subpantallas que estaran dentro de la principal y permitiran adelantar/retroceder
 // Se debe tener en cuenta el orden en que se asigenn porque asi mismo se visualizaran
@@ -42,6 +43,12 @@ const myAccountScreenStack = createStackNavigator({
         screen: MyAccountScreen,
         navigationOptions: ({ navigation }) => ({
             title: 'Mi cuenta'
+        })
+    },
+    Register: {
+        screen: RegisterScreen,
+        navigationOptions: ({ navigation }) => ({
+            title: 'Registro'
         })
     }
 });
@@ -78,7 +85,7 @@ const RootStack = createBottomTabNavigator({
     }
 },
     {
-        initialRouteName: 'Home',
+        initialRouteName: 'MyAccount',
         order: ['Home', 'TopFive', 'Search', 'MyAccount'],
         tabBarOptions: {
             inactiveTintColor: '#646464',
