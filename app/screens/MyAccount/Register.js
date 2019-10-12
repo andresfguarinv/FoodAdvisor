@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, View } from 'react-native';
-import { Button } from 'react-native-elements';
+import { StyleSheet, View } from 'react-native';
+import { Button, Text } from 'react-native-elements';
 // Importar formulario
 import { RegisterStruct, RegisterOptions } from '../../forms/Register'
 import t from 'tcomb-form-native'
 const Form = t.form.Form;
-
 
 export default class Register extends Component {
 
@@ -15,7 +14,9 @@ export default class Register extends Component {
             registerStruct: RegisterStruct,
             registerOptions: RegisterOptions,
             // 5. Para asignar la información del formulario se deben agregar al state 
-            formData: {}
+            formData: {},
+            // 10. Variable para almacenar los mensajes de validación y lo agregamos en el render en un elemento text
+            formErrorMessage: ""
         };
     }
 
@@ -25,26 +26,24 @@ export default class Register extends Component {
         if (password === passwordConfirmation) {
             const validate = this.refs.registerForm.getValue(); // Valida el formulario al traer los valores
             if (validate) {
+                this.setState({ formErrorMessage: `` });
                 console.log(this.state.formData);
             } else {
-                console.log(`Formulario Inválido`);
+                this.setState({ formErrorMessage: `Formulario inválido` });
             }
         }
         else {
-            console.log(`Las contraseñas no son iguales`);
+            this.setState({ formErrorMessage: `Las contraseñas no son iguales` });
         }
     }
 
     // 6. Funcion que se debe asignar al formulario para que cada vez que se escriba almanecenar la información en nuestro objeto
     onChangeFormRegister = (formValue) => {
-        this.setState({
-            formData: formValue
-        });
-        // console.log(this.state.formData);
+        this.setState({ formData: formValue });
     }
 
     render() {
-        const { registerStruct, registerOptions } = this.state;
+        const { registerStruct, registerOptions, formErrorMessage } = this.state;
         return (
             <View style={styles.viewBody}>
                 <Form
@@ -54,8 +53,10 @@ export default class Register extends Component {
                     value={this.state.formData}
                     onChange={(formValue) => this.onChangeFormRegister(formValue)} />
                 <Button
+                    buttonStyle={styles.buttonRegisterContainer}
                     title="Unirse"
                     onPress={() => this.register()} />
+                <Text style={styles.formErrorMessage}>{formErrorMessage}</Text>
             </View>
         );
     }
@@ -67,5 +68,16 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         marginLeft: 40,
         marginRight: 40
+    },
+    buttonRegisterContainer: {
+        backgroundColor: "#00a680",
+        marginTop: 20,
+        marginLeft: 10,
+        marginRight: 10
+    },
+    formErrorMessage: {
+        color: "#f00",
+        textAlign: "center",
+        marginTop: 30
     }
 });
