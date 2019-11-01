@@ -5,6 +5,8 @@ import { Button, Text } from 'react-native-elements';
 import { RegisterStruct, RegisterOptions } from '../../forms/Register'
 import t from 'tcomb-form-native'
 const Form = t.form.Form;
+// Importar firebase
+import * as firebase from 'firebase'
 
 export default class Register extends Component {
 
@@ -27,7 +29,11 @@ export default class Register extends Component {
             const validate = this.refs.registerForm.getValue(); // Valida el formulario al traer los valores
             if (validate) {
                 this.setState({ formErrorMessage: `` });
-                console.log(this.state.formData);
+                firebase.auth().createUserWithEmailAndPassword(validate.email, validate.password).then(result => {
+                    console.log('Registro correcto');
+                }).catch(error => {
+                    console.log('Error en el registro');
+                });
             } else {
                 this.setState({ formErrorMessage: `Formulario inválido` });
             }
