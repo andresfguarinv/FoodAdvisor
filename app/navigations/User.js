@@ -11,6 +11,7 @@ import SearchScreen from '../screens/Search';
 import TopFiveScreen from '../screens/TopFive';
 import MyAccountScreen from '../screens/MyAccount/MyAccount';
 import RegisterScreen from '../screens/MyAccount/Register';
+import LoginScreen from '../screens/MyAccount/Login';
 
 // Stacks: Son las subpantallas que estaran dentro de la principal y permitiran adelantar/retroceder
 // Se debe tener en cuenta el orden en que se asigenn porque asi mismo se visualizaran
@@ -49,6 +50,12 @@ const myAccountScreenStack = createStackNavigator({
         screen: RegisterScreen,
         navigationOptions: ({ navigation }) => ({
             title: 'Registro'
+        })
+    },
+    Login: {
+        screen: LoginScreen,
+        navigationOptions: ({ navigation }) => ({
+            title: 'Login'
         })
     }
 });
