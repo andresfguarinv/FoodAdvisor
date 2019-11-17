@@ -14,10 +14,17 @@ export default class MyAccount extends Component {
 
     // Funcion que se ejecuta luego del constructor y luego del render
     async componentDidMount() {
+        this.setState({ login: false });
         await firebase.auth().onAuthStateChanged(user => {
             if (user) {
                 this.setState({ login: true });
             }
+        });
+    }
+
+    logout = () => {
+        firebase.auth().signOut().then(res => {
+            this.setState({ login: false });
         });
     }
 
@@ -29,7 +36,10 @@ export default class MyAccount extends Component {
         const { login } = this.state;
         if (login) {
             return (
-                <Text>Estas logueado</Text>
+                <View style={styles.viewBody}>
+                    <Text>Estas logueado</Text>
+                    <Button title='Cerrar sesión' onPress={() => this.logout()}></Button>
+                </View>
             );
         }
         return (
