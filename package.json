@@ -10,6 +10,7 @@
   "dependencies": {
     "@react-navigation/core": "^3.5.0",
     "expo": "^34.0.1",
+    "expo-facebook": "~6.0.0",
     "firebase": "^7.2.3",
     "react": "16.8.3",
     "react-dom": "^16.8.6",
